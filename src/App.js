@@ -344,11 +344,11 @@ function App() {
                     <td style={{
                       textDecoration : itemTrial.valid ? "none" : "line-through",
                       color : itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.trackedOne}</td>
+                    }}>{itemTrial.tracked_one}</td>
                     <td style={{
                       textDecoration : itemTrial.valid ? "none" : "line-through",
                       color : itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.trackedTwo}</td>
+                    }}>{itemTrial.tracked_two}</td>
                   </tr>
                 )
               })}
