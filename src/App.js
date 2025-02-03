@@ -85,8 +85,8 @@ function App() {
             number: randomNumber+1,
             time: String(unix),
             time_utc: String(unix.toISOString()),
-            trackedOne: trackedOne,
-            trackedTwo: trackedTwo,
+            tracked_one: trackedOne,
+            tracked_two: trackedTwo,
             valid: true};
           setListTrials([dictTrial, ...listTrials])
         }
