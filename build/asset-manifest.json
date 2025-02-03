@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "//neurocog-mobility.github.io/app-digit-monitor/static/css/main.a29e8625.css",
+    "main.js": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.32f9d854.js",
+    "static/js/453.c8d2375b.chunk.js": "//neurocog-mobility.github.io/app-digit-monitor/static/js/453.c8d2375b.chunk.js",
+    "static/media/5.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/5.3d74a51c0610e1454c97.mp3",
+    "static/media/7.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/7.5c1d79f312feba5c1f1d.mp3",
+    "static/media/9.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/9.67b590ed8d165f3b0112.mp3",
+    "static/media/1.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/1.d02a28a896add64868ea.mp3",
+    "static/media/4.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/4.56d94b6eb68dd0ee0a09.mp3",
+    "static/media/6.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/6.33bad37a3750aafc4344.mp3",
+    "static/media/3.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/3.3482d5c33fa0de7b631a.mp3",
+    "static/media/8.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/8.6e5ecf06e4e805e45dfc.mp3",
+    "static/media/10.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/10.ad23056e5190c8098162.mp3",
+    "static/media/2.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/2.9d2f841b6109a52a7b86.mp3",
+    "index.html": "//neurocog-mobility.github.io/app-digit-monitor/index.html",
+    "main.a29e8625.css.map": "//neurocog-mobility.github.io/app-digit-monitor/static/css/main.a29e8625.css.map",
+    "main.32f9d854.js.map": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.32f9d854.js.map",
+    "453.c8d2375b.chunk.js.map": "//neurocog-mobility.github.io/app-digit-monitor/static/js/453.c8d2375b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a29e8625.css",
+    "static/js/main.32f9d854.js"
+  ]
+}
