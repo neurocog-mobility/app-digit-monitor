@@ -205,6 +205,13 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
+      <Navbar bg="dark" data-bs-theme="dark">
+        <Container>
+          <Navbar.Brand href="https://doi.org/10.1007/s00221-024-06800-3"
+          style={{fontSize: '0.75rem', fontStyle: 'italic'}}
+          target="_blank">Task adapted from: Norouzian et al. (2024).</Navbar.Brand>
+        </Container>
+      </Navbar>
 
       <Row style={{marginLeft: "5vw", marginRight: "5vw"}}>
         <Col style={{alignItems: "stretch"}}>
