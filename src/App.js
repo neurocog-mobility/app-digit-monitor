@@ -83,8 +83,8 @@ function App() {
             id: listTrials.length,
             trial: trialCount,
             number: randomNumber+1,
-            time: String(unix),
-            time_utc: String(unix.toISOString()),
+            time_unix: String(unix),
+            time: String(unix.toISOString()),
             tracked_one: trackedOne,
             tracked_two: trackedTwo,
             valid: true};

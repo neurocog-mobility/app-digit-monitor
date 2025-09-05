@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "//neurocog-mobility.github.io/app-digit-monitor/static/css/main.a29e8625.css",
-    "main.js": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.0b53a69d.js",
+    "main.js": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.c79cfc8c.js",
     "static/js/453.c8d2375b.chunk.js": "//neurocog-mobility.github.io/app-digit-monitor/static/js/453.c8d2375b.chunk.js",
     "static/media/5.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/5.3d74a51c0610e1454c97.mp3",
     "static/media/7.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/7.5c1d79f312feba5c1f1d.mp3",
@@ -15,11 +15,11 @@
     "static/media/2.mp3": "//neurocog-mobility.github.io/app-digit-monitor/static/media/2.9d2f841b6109a52a7b86.mp3",
     "index.html": "//neurocog-mobility.github.io/app-digit-monitor/index.html",
     "main.a29e8625.css.map": "//neurocog-mobility.github.io/app-digit-monitor/static/css/main.a29e8625.css.map",
-    "main.0b53a69d.js.map": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.0b53a69d.js.map",
+    "main.c79cfc8c.js.map": "//neurocog-mobility.github.io/app-digit-monitor/static/js/main.c79cfc8c.js.map",
     "453.c8d2375b.chunk.js.map": "//neurocog-mobility.github.io/app-digit-monitor/static/js/453.c8d2375b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a29e8625.css",
-    "static/js/main.0b53a69d.js"
+    "static/js/main.c79cfc8c.js"
   ]
 }
