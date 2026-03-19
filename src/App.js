@@ -135,6 +135,18 @@ function App() {
   }, [isPlaying, listAudio, intervalLimits, randomNumber, listTrials, trialCount, doubleDigits, trackedDigits]);
 
   const isFirstMount = useRef(true);
+  const handleGenerateDigits = useCallback(() => {
+    if (listAudio.length === 0) return;
+    let newDigits;
+    if (doubleDigits) {
+      newDigits = [Math.floor(Math.random() * listAudio.length / 2) + 1,
+      Math.floor(Math.random() * listAudio.length / 2 + listAudio.length / 2) + 1];
+    } else {
+      newDigits = [Math.floor(Math.random() * listAudio.length) + 1];
+    }
+    setTrackedDigits(newDigits);
+  }, [listAudio, doubleDigits]);
+
   useEffect(() => {
     if (isFirstMount.current) {
       isFirstMount.current = false;
@@ -182,17 +194,7 @@ function App() {
     setLanguage('nl');
   }
 
-  const handleGenerateDigits = useCallback(() => {
-    if (listAudio.length === 0) return;
-    let newDigits;
-    if (doubleDigits) {
-      newDigits = [Math.floor(Math.random() * listAudio.length / 2) + 1,
-      Math.floor(Math.random() * listAudio.length / 2 + listAudio.length / 2) + 1];
-    } else {
-      newDigits = [Math.floor(Math.random() * listAudio.length) + 1];
-    }
-    setTrackedDigits(newDigits);
-  }, [listAudio, doubleDigits]);
+
 
 
   function handleValid(id) {
