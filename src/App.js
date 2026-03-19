@@ -134,7 +134,7 @@ function App() {
     return () => clearInterval(intervalId);
   }, [isPlaying, listAudio, intervalLimits, randomNumber, listTrials, trialCount, doubleDigits, trackedDigits]);
 
-  const isFirstMount = useRef(true);
+  const isInitialAudioLoad = useRef(true);
   const handleGenerateDigits = useCallback(() => {
     if (listAudio.length === 0) return;
     let newDigits;
@@ -148,12 +148,13 @@ function App() {
   }, [listAudio, doubleDigits]);
 
   useEffect(() => {
-    if (isFirstMount.current) {
-      isFirstMount.current = false;
+    if (listAudio.length === 0) return;
+    if (isInitialAudioLoad.current) {
+      isInitialAudioLoad.current = false;
       return;
     }
     handleGenerateDigits();
-  }, [doubleDigits, range, handleGenerateDigits])
+  }, [doubleDigits, listAudio, handleGenerateDigits]);
 
 
 
