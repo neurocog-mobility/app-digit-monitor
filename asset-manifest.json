@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/app-digit-monitor/static/css/main.a29e8625.css",
-    "main.js": "/app-digit-monitor/static/js/main.c65ac2fb.js",
+    "main.js": "/app-digit-monitor/static/js/main.cf07473e.js",
     "static/js/453.c8d2375b.chunk.js": "/app-digit-monitor/static/js/453.c8d2375b.chunk.js",
     "static/media/7.mp3": "/app-digit-monitor/static/media/7.5c1d79f312feba5c1f1d.mp3",
     "static/media/1.mp3": "/app-digit-monitor/static/media/1.d02a28a896add64868ea.mp3",
@@ -15,11 +15,11 @@
     "static/media/4.mp3": "/app-digit-monitor/static/media/4.56d94b6eb68dd0ee0a09.mp3",
     "index.html": "/app-digit-monitor/index.html",
     "main.a29e8625.css.map": "/app-digit-monitor/static/css/main.a29e8625.css.map",
-    "main.c65ac2fb.js.map": "/app-digit-monitor/static/js/main.c65ac2fb.js.map",
+    "main.cf07473e.js.map": "/app-digit-monitor/static/js/main.cf07473e.js.map",
     "453.c8d2375b.chunk.js.map": "/app-digit-monitor/static/js/453.c8d2375b.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a29e8625.css",
-    "static/js/main.c65ac2fb.js"
+    "static/js/main.cf07473e.js"
   ]
 }
