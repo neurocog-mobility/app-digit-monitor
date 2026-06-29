@@ -55,10 +55,11 @@ function App() {
   const [showAbout, setShowAbout] = useState(false);
   const [doubleDigits, setDoubleDigits] = useState(() => JSON.parse(window.localStorage.getItem('DOUBLE_DIGITMONITOR')) ?? true);
   const [trackedDigits, setTrackedDigits] = useState(() => JSON.parse(window.localStorage.getItem('TRACKED_DIGITMONITOR')) || [1, 7]);
+  const [trackedWeights, setTrackedWeights] = useState(() => JSON.parse(window.localStorage.getItem('WEIGHTS_DIGITMONITOR')) || [1, 1]);
 
   const [isPlaying, setIsPlaying] = useState(false);
   const [randomNumber, setRandomNumber] = useState(0);
-  const [intervalLimits, setIntervalLimits] = useState(() => JSON.parse(window.localStorage.getItem('INTERVAL_DIGITMONITOR')) || [500, 1500]);
+  const [intervalLimits, setIntervalLimits] = useState(() => JSON.parse(window.localStorage.getItem('INTERVAL_DIGITMONITOR')) || [600, 1200]);
   const [trialCount, setTrialCount] = useState(() => {
     return JSON.parse(window.localStorage.getItem('COUNT_DIGITMONITOR')) || 1
   });
@@ -95,13 +96,29 @@ function App() {
     window.localStorage.setItem('TRACKED_DIGITMONITOR', JSON.stringify(trackedDigits));
   }, [trackedDigits]);
 
+  useEffect(() => {
+    window.localStorage.setItem('WEIGHTS_DIGITMONITOR', JSON.stringify(trackedWeights));
+  }, [trackedWeights]);
+
 
   useEffect(() => {
     const intervalId = setInterval(
       () => {
-        setRandomNumber(Math.floor(Math.random() * listAudio.length));
+        const weights = Array(listAudio.length).fill(1);
+      trackedDigits.forEach((digit, i) => {
+        weights[digit - 1] = trackedWeights[i];
+      });
+      const total = weights.reduce((a, b) => a + b, 0);
+      let r = Math.random() * total;
+      let selectedIdx = weights.length - 1;
+      for (let i = 0; i < weights.length; i++) {
+        r -= weights[i];
+        if (r <= 0) { selectedIdx = i; break; }
+      }
+      setRandomNumber(selectedIdx);
         if (isPlaying) {
           const randomAudio = listAudio[randomNumber];
+          randomAudio.currentTime = 0;
           randomAudio.play();
 
           // update trial list
@@ -132,7 +149,7 @@ function App() {
     ); // Random interval between 500ms and 1500ms
 
     return () => clearInterval(intervalId);
-  }, [isPlaying, listAudio, intervalLimits, randomNumber, listTrials, trialCount, doubleDigits, trackedDigits]);
+  }, [isPlaying, listAudio, intervalLimits, randomNumber, listTrials, trialCount, doubleDigits, trackedDigits, trackedWeights]);
 
   const isInitialAudioLoad = useRef(true);
   const handleGenerateDigits = useCallback(() => {
@@ -145,6 +162,7 @@ function App() {
       newDigits = [Math.floor(Math.random() * listAudio.length) + 1];
     }
     setTrackedDigits(newDigits);
+    setTrackedWeights(newDigits.map(() => 0.5 + Math.random() * 1.5));
   }, [listAudio, doubleDigits]);
 
   useEffect(() => {
@@ -174,13 +192,10 @@ function App() {
     setDoubleDigits(!doubleDigits);
   }
   function handleSpeedFast() {
-    setIntervalLimits([250, 1000]);
-  }
-  function handleSpeedMedium() {
-    setIntervalLimits([500, 1500]);
+    setIntervalLimits([600, 1200]);
   }
   function handleSpeedSlow() {
-    setIntervalLimits([1000, 2500]);
+    setIntervalLimits([1200, 2400]);
   }
   function handleAudioSix() {
     setRange(6);
@@ -329,9 +344,8 @@ function App() {
               <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'stretch' }}>
                 <Card.Title style={{ fontSize: '0.85rem', textAlign: 'center', marginBottom: '8px' }}>Select speed:</Card.Title>
                 <Card style={{ minHeight: '10vh', height: '100%', padding: '12px 8px', alignItems: 'flex-start', justifyContent: 'center', width: '100%' }}>
-                  <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Fast (250-1000ms)" name="speedOptions" onChange={handleSpeedFast} checked={intervalLimits[0] === 250} />
-                  <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Medium (500-1500ms)" name="speedOptions" onChange={handleSpeedMedium} checked={intervalLimits[0] === 500} />
-                  <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Slow (1000-2500ms)" name="speedOptions" onChange={handleSpeedSlow} checked={intervalLimits[0] === 1000} />
+                  <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Fast (600-1200ms)" name="speedOptions" onChange={handleSpeedFast} checked={intervalLimits[0] === 600} />
+                  <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Slow (1200-2400ms)" name="speedOptions" onChange={handleSpeedSlow} checked={intervalLimits[0] === 1200} />
                 </Card>
               </Col>
               <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'stretch' }}>
