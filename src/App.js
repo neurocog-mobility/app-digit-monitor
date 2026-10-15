@@ -32,7 +32,6 @@ import num8Nl from './audio/nl/8.mp3'
 import num9Nl from './audio/nl/9.mp3'
 import num10Nl from './audio/nl/10.mp3'
 
-
 import { useState, useEffect, useRef, useCallback } from 'react';
 
 const audioSources = {
@@ -67,7 +66,6 @@ function App() {
     return JSON.parse(window.localStorage.getItem('LIST_TRIALS_DIGITMONITOR')) || []
   });
 
-
   useEffect(() => {
     window.localStorage.setItem('COUNT_DIGITMONITOR', JSON.stringify(trialCount));
   }, [trialCount]);
@@ -100,22 +98,21 @@ function App() {
     window.localStorage.setItem('WEIGHTS_DIGITMONITOR', JSON.stringify(trackedWeights));
   }, [trackedWeights]);
 
-
   useEffect(() => {
     const intervalId = setInterval(
       () => {
         const weights = Array(listAudio.length).fill(1);
-      trackedDigits.forEach((digit, i) => {
-        weights[digit - 1] = trackedWeights[i];
-      });
-      const total = weights.reduce((a, b) => a + b, 0);
-      let r = Math.random() * total;
-      let selectedIdx = weights.length - 1;
-      for (let i = 0; i < weights.length; i++) {
-        r -= weights[i];
-        if (r <= 0) { selectedIdx = i; break; }
-      }
-      setRandomNumber(selectedIdx);
+        trackedDigits.forEach((digit, i) => {
+          weights[digit - 1] = trackedWeights[i];
+        });
+        const total = weights.reduce((a, b) => a + b, 0);
+        let r = Math.random() * total;
+        let selectedIdx = weights.length - 1;
+        for (let i = 0; i < weights.length; i++) {
+          r -= weights[i];
+          if (r <= 0) { selectedIdx = i; break; }
+        }
+        setRandomNumber(selectedIdx);
         if (isPlaying) {
           const randomAudio = listAudio[randomNumber];
           randomAudio.currentTime = 0;
@@ -174,8 +171,6 @@ function App() {
     handleGenerateDigits();
   }, [doubleDigits, listAudio, handleGenerateDigits]);
 
-
-
   function handleStartStop() {
     setIsPlaying(!isPlaying);
   }
@@ -210,9 +205,6 @@ function App() {
     setLanguage('nl');
   }
 
-
-
-
   function handleValid(id) {
     const newList = listTrials.map((item) => {
       if (item.id === id) {
@@ -226,6 +218,7 @@ function App() {
     });
     setListTrials(newList);
   }
+  
   function convertToCSV(arr) {
     const array = [Object.keys(arr[0])].concat(arr)
 
@@ -233,6 +226,7 @@ function App() {
       return Object.values(it).toString()
     }).join('\n')
   }
+  
   function handleExport() {
     if (listTrials.length > 0) {
       console.log([convertToCSV(listTrials)])
@@ -268,6 +262,10 @@ function App() {
     setListTrials([]);
     setShow(false);
   }
+  
+  const currentTrialData = listTrials.filter(t => t.trial === trialCount && t.valid);
+  const freqOne = currentTrialData.filter(t => t.number === trackedDigits[0]).length;
+  const freqTwo = doubleDigits ? currentTrialData.filter(t => t.number === trackedDigits[1]).length : 0;
 
   return (
     <>
@@ -312,8 +310,8 @@ function App() {
             }}>
             <Row>
               {trackedDigits.map((number, index) => (
-                <Col>
-                  <Card bg="primary" key={index}
+                <Col key={index}>
+                  <Card bg="primary"
                     style={{ padding: "8px", color: "#fff", fontWeight: "bolder", fontSize: "1.5rem", textAlign: "center" }}>
                     {number}
                   </Card>
@@ -362,12 +360,9 @@ function App() {
                   <Form.Check style={{ fontSize: '0.85rem' }} type="radio" label="Dutch" name="langOptions" onChange={handleLanguageNl} checked={language === 'nl'} />
                 </Card>
               </Col>
-
             </Row>
           </Card>
         </Col>
-
-
       </Row>
 
       <Card style={{ marginLeft: "20vw", marginRight: "20vw", marginTop: "16px", boxShadow: "1px 4px 4px #e1e1e1" }}>
@@ -421,8 +416,9 @@ function App() {
 
       <Card style={{ width: '98vw', margin: '1vw', boxShadow: "1px 4px 8px #e1e1e1" }}>
         <Card.Body>
-          <Button variant="outline-dark" size="block" onClick={handleShow}>Reset</Button>
-          <Card bg='primary' text="light" style={{ width: '100%', boxShadow: "1px 4px 8px #e1e1e1", position: 'sticky', top: '0', zIndex: '1', height: '12vh' }}>
+          <Button variant="outline-dark" size="block" onClick={handleShow}>Reset All Data</Button>
+          
+          <Card bg='primary' text="light" style={{ width: '100%', boxShadow: "1px 4px 8px #e1e1e1", position: 'sticky', top: '0', zIndex: '1', height: '12vh', marginTop: '16px' }}>
             <Card.Body>
               <Card.Title style={{ display: 'flex', justifyContent: 'center' }}>Data</Card.Title>
               <div style={{ marginBottom: '2px', display: 'flex', justifyContent: 'center' }}>
@@ -430,41 +426,55 @@ function App() {
               </div>
             </Card.Body>
           </Card>
-          <Table striped bordered hover>
-            <thead style={{ position: 'sticky', top: '12vh', zIndex: '1' }}>
-              <tr>
-                <th>Trial #</th>
-                <th>Number</th>
-                <th>Tracked Digit 1</th>
-                <th>Tracked Digit 2</th>
-              </tr>
-            </thead>
-            <tbody>
-              {listTrials.map((itemTrial, index) => {
-                return (
-                  <tr key={index} onClick={() => handleValid(itemTrial.id)}>
-                    <td style={{
-                      textDecoration: itemTrial.valid ? "none" : "line-through",
-                      color: itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.trial}</td>
-                    <td style={{
-                      textDecoration: itemTrial.valid ? "none" : "line-through",
-                      color: itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.number}</td>
-                    <td style={{
-                      textDecoration: itemTrial.valid ? "none" : "line-through",
-                      color: itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.tracked_one}</td>
-                    <td style={{
-                      textDecoration: itemTrial.valid ? "none" : "line-through",
-                      color: itemTrial.valid ? "black" : "red",
-                    }}>{itemTrial.tracked_two}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
-        </Card.Body>
+
+          <div style={{ display: 'flex', justifyContent: 'center', margin: '16px 0', fontSize: '1.2rem' }}>
+            <span style={{ marginRight: '20px' }}>
+              <strong>Tracking:</strong> {trackedDigits[0]} | <strong>Frequency:</strong> {freqOne}
+            </span>
+            {doubleDigits && (
+              <span>
+                <strong>Tracking:</strong> {trackedDigits[1]} | <strong>Frequency:</strong> {freqTwo}
+              </span>
+            )}
+          </div>
+
+          <div style={{ maxHeight: '40vh', overflowY: 'auto', border: '1px solid #dee2e6', borderRadius: '4px' }}>
+            <Table striped bordered hover style={{ margin: 0 }}>
+              <thead style={{ position: 'sticky', top: '0', zIndex: '1', backgroundColor: '#f8f9fa' }}>
+                <tr>
+                  <th>Trial #</th>
+                  <th>Number</th>
+                  <th>Tracked Digit 1</th>
+                  <th>Tracked Digit 2</th>
+                </tr>
+              </thead>
+              <tbody>
+                {listTrials.map((itemTrial, index) => {
+                  return (
+                    <tr key={index} onClick={() => handleValid(itemTrial.id)} style={{ cursor: 'pointer' }}>
+                      <td style={{
+                        textDecoration: itemTrial.valid ? "none" : "line-through",
+                        color: itemTrial.valid ? "black" : "red",
+                      }}>{itemTrial.trial}</td>
+                      <td style={{
+                        textDecoration: itemTrial.valid ? "none" : "line-through",
+                        color: itemTrial.valid ? "black" : "red",
+                      }}>{itemTrial.number}</td>
+                      <td style={{
+                        textDecoration: itemTrial.valid ? "none" : "line-through",
+                        color: itemTrial.valid ? "black" : "red",
+                      }}>{itemTrial.tracked_one}</td>
+                      <td style={{
+                        textDecoration: itemTrial.valid ? "none" : "line-through",
+                        color: itemTrial.valid ? "black" : "red",
+                      }}>{itemTrial.tracked_two}</td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </Table>
+          </div>        
+        </Card.Body> 
       </Card>
     </>
   );
